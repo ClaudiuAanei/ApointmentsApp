@@ -1,0 +1,38 @@
+/* Tranziție la schimbarea temei */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  flex: 1 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Buton temă minimalist și modern */
+#themeToggle {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--bs-primary);
+  transition: color 0.3s ease;
+}
+
+#themeToggle:hover {
+  color: var(--bs-primary-dark);
+}
+
+/* Pentru a nu afișa scrollbar orizontal la very small */
+@media (max-width: 575px) {
+  body {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
