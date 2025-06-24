@@ -1,4 +1,23 @@
 $(document).ready(function() {
+    // 1. Add custom validation methods for each password complexity condition
+    $.validator.addMethod("hasUppercase", function(value, element) {
+        return this.optional(element) || /[A-Z]/.test(value);
+    }, "Password must contain at least one uppercase letter.");
+
+    $.validator.addMethod("hasLowercase", function(value, element) {
+        return this.optional(element) || /[a-z]/.test(value);
+    }, "Password must contain at least one lowercase letter.");
+
+    $.validator.addMethod("hasDigit", function(value, element) {
+        return this.optional(element) || /\d/.test(value);
+    }, "Password must contain at least one digit.");
+
+    $.validator.addMethod("hasSpecialChar", function(value, element) {
+        // Set of special characters: !@#$%^&*()_+=-[]{};':"\\|,.<>/?`~
+        return this.optional(element) || /[!@#$%^&*()_+=\-[\]{};':"\\|,.<>/?`~]/.test(value);
+    }, "Password must contain at least one special character.");
+
+
     $("#registrationForm").validate({
         rules: {
             username: {
@@ -50,7 +69,14 @@ $(document).ready(function() {
             },
             password: {
                 required: true,
-                minlength: 8
+                // Length conditions
+                minlength: 8, // Password must be at least 12 characters long
+                maxlength: 64, // Password can be at most 64 characters long
+                // Complexity conditions (strong password)
+                hasUppercase: true,   // New method for uppercase letter
+                hasLowercase: true,   // New method for lowercase letter
+                hasDigit: true,       // New method for digit
+                hasSpecialChar: true  // New method for special character
             },
             confirm_password: {
                 required: true,
@@ -59,22 +85,24 @@ $(document).ready(function() {
         },
         messages: {
             username: {
-                required: "Enter your username.",
-                minlength: "Username must have between 4 and 20 characters.",
-                maxlength: "Username must have between 4 and 20 characters.",
+                required: "Please enter a username.",
+                minlength: "Username must be between 4 and 20 characters.",
+                maxlength: "Username must be between 4 and 20 characters.",
                 remote: "This username is already taken."
             },
             email: {
-                required: "Enter your email address.",
+                required: "Please enter your email address.",
                 email: "This is not a valid email address.",
                 remote: "This email is already registered."
             },
             password: {
-                required: "Enter your password.",
-                minlength: "Password must have a minimum of 8 characters."
+                required: "Please enter a password.",
+                minlength: "Password must be at least 8 characters long.",
+                maxlength: "Password can be at most 64 characters long."
+                // Messages for other conditions are defined directly in addMethod
             },
             confirm_password: {
-                required: "Confirm your password.",
+                required: "Please confirm your password.",
                 equalTo: "Passwords do not match."
             }
         },
@@ -84,16 +112,13 @@ $(document).ready(function() {
 
         highlight: function(element, errorClass, validClass) {
             $(element).addClass('is-invalid').removeClass('is-valid');
-            // Find the parent input-group (if it exists) and add the invalid class
             $(element).closest('.input-group').addClass('is-invalid').removeClass('is-valid');
         },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid').addClass('is-valid');
-            // Find the parent input-group and remove the invalid class
             $(element).closest('.input-group').removeClass('is-invalid').addClass('is-valid');
         },
         errorPlacement: function(error, element) {
-            // Crucial logic: Place the error in the specific container, not directly after the input
             let targetContainer;
 
             if (element.attr("id") === "password") {
@@ -105,7 +130,6 @@ $(document).ready(function() {
             } else if (element.attr("id") === "email") {
                 targetContainer = $("#email-error-container");
             } else {
-                // Fallback for other elements that don't have a specific container
                 error.insertAfter(element);
                 targetContainer = null;
             }
@@ -114,7 +138,7 @@ $(document).ready(function() {
                 error.appendTo(targetContainer);
             }
 
-            error.addClass('d-block'); // Ensure the error message is visible (Bootstrap hides .invalid-feedback by default)
+            error.addClass('d-block');
         },
         submitHandler: function(form) {
             form.submit();
@@ -128,6 +152,4 @@ $(document).ready(function() {
         passwordField.attr("type", type);
         $(this).find('i').toggleClass("fa-eye fa-eye-slash");
     });
-
-    // The code for "toggleConfirmPassword" has been removed.
 });

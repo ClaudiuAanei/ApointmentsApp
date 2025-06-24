@@ -45,6 +45,26 @@ class Registration(FlaskForm):
             raise ValidationError('This email is already used.')
 
 
+    def validate_password(self, password_field):
+        print('Verific Conditiile')
+
+        password_value = password_field.data
+
+        if not any(c.isupper() for c in password_value):
+            raise ValidationError('Password must contain at least one uppercase letter.')
+
+        if not any(c.islower() for c in password_value):
+            raise ValidationError("Password must contain at least one lowercase letter.")
+
+        if not any(c.isdigit() for c in password_value):
+            raise ValidationError("Password must contain at least one digit.")
+
+        special_chars = "!@#$%^&*()_+{}[]:;<>,.?~\\-"
+        if not any(c in special_chars for c in password_value):
+            raise ValidationError("Password must contain at least one special character.")
+
+
+
 class LoginForm(FlaskForm):
 
     email = EmailField('Email Address', validators=[
@@ -63,7 +83,7 @@ class LoginForm(FlaskForm):
         email = User.query.filter_by(email= self.email.data).first()
 
         if email:
-            if not check_password_hash(email.password, password=password.data):
+            if not check_password_hash(email.password_hash, password=password.data):
                 raise ValidationError('Invalid email or password')
         else:
             raise ValidationError('Invalid email or password')

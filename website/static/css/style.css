@@ -357,6 +357,11 @@ main.container {
     padding-right: 0.75rem !important;
 }
 
+.form-control.is-valid {
+    background-image: none !important;
+    padding-right: 0.75rem !important;
+}
+
 /* --- Buttons Styling (Professional & Serious) --- */
 .btn {
     font-weight: 600;
