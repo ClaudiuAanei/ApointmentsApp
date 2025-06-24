@@ -1,25 +1,35 @@
 import os
+from dotenv import find_dotenv, load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from flask_mail import Mail
+from flask_wtf import CSRFProtect
 
+PATH = find_dotenv()
+load_dotenv(PATH)
+
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 db = SQLAlchemy()
-DB_NAME = 'appointment_manager.db'
+DB_NAME = os.getenv('DB_NAME')
+
 migrate = Migrate()
+csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'HierIwillprotectmywebsite'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    csrf.init_app(app)
 
     # Blue Prints Register
+
     from website.views import views
-    from website.auth import auth
+    from website.auth import auth, google_bp
 
     app.register_blueprint(views, prefix= '/')
     app.register_blueprint(auth, prefix= '/')
+    app.register_blueprint(google_bp, url_prefix="/login")
 
     # Data Base
 
@@ -31,6 +41,7 @@ def create_app():
     create_database(app)
 
     # Login Manager
+
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)

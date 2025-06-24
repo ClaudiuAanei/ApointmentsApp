@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    if (window.opener) {
+      window.opener.postMessage("login_success", "*");
+      window.close();
+    }
+  </script>
+</head>
+<body>
+  <p>Închide această fereastră...</p>
+</body>
+</html>
