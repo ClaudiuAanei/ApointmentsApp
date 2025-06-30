@@ -1,0 +1,89 @@
+{% extends "base.html"%}
+
+{% block title %}Make appointment{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row g-4 align-items-stretch">
+
+        <div class="col-lg-4">
+            <div class="panel-container h-100 people-panel">
+                <div class="panel-header" data-bs-target="#employee-list-collapse">
+                    <h3 class="h5">Employees</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-icon bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </div>
+                <div class="collapse" id="employee-list-collapse">
+                    <ul class="people-list pt-3 theme-aware-scroll">
+                        <li class="person-item"><img src="https://placehold.co/40x40/F1F3F5/495057?text=M" alt="Avatar" class="avatar"><span>Mihai Ionescu</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="panel-container h-100">
+                <div class="panel-header" data-bs-target="#calendar-collapse">
+                    <h3 class="h5">Calendar</h3>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-icon bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </div>
+                 <div class="collapse" id="calendar-collapse">
+                    <div class="pt-3">
+                        <div class="calendar-header">
+                            <button id="prev-month-btn" class="btn btn-primary">&lt;</button>
+                            <h2 id="current-month-year"></h2>
+                            <button id="next-month-btn" class="btn btn-primary">&gt;</button>
+                        </div>
+                        <div id="calendar-weekdays" class="calendar-grid"></div>
+                        <div id="calendar-days" class="calendar-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="col-12">
+            <div class="panel-container h-100">
+                 <div class="panel-header" data-bs-target="#hours-collapse">
+                    <h3 class="h5">Available Hours</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-icon bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </div>
+                 <div class="collapse" id="hours-collapse">
+                    <div class="pt-3">
+                        <div class="time-slots-container">
+                        <div class="time-slot">08:00 - 08:30</div>
+                        <div class="time-slot">08:30 - 09:00</div>
+                        <div class="time-slot">09:00 - 09:30</div>
+                        <div class="time-slot">09:30 - 10:00</div>
+                        <div class="time-slot">10:00 - 10:30</div>
+                        <div class="time-slot">10:30 - 11:00</div>
+                        <div class="time-slot">11:00 - 11:30</div>
+                        <div class="time-slot">11:30 - 12:00</div>
+                        <div class="time-slot">12:00 - 12:30</div>
+                        <div class="time-slot">12:30 - 13:00</div>
+                        <div class="time-slot">13:00 - 13:30</div>
+                        <div class="time-slot">13:30 - 14:00</div>
+                        <div class="time-slot">14:00 - 14:30</div>
+                        <div class="time-slot">14:30 - 15:00</div>
+                        <div class="time-slot">15:00 - 15:30</div>
+                        <div class="time-slot">15:30 - 16:00</div>
+                        <div class="time-slot active">16:00 - 16:30</div>
+                        <div class="time-slot">16:30 - 17:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="submit-button-container">
+        <button class="btn btn-primary" id="submit-booking-btn">Book an Appointment</button>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script src="{{ url_for('static', filename='js/appointment_scripts/planner.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/appointment_scripts/colapser.js') }}"></script>
+
+{% endblock %}
