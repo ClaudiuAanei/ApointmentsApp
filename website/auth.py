@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, current_user
 from flask_dance.contrib.google import make_google_blueprint, google
 from website import db
 from .forms import Registration, LoginForm, ResetPasswordForm, RequestResetPasswordForm
-from .models import User, ResetPassword, create_user
+from website.models import User, ResetPassword, create_user
 from .emails import Email, UniqueCode
 
 

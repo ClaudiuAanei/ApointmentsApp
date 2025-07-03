@@ -37,7 +37,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db) # Helpfully Tool To Modify DataBase
 
-    from .models import User
+    from . import models
     create_database(app)
 
     # Login Manager
@@ -48,7 +48,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return db.get_or_404(User, user_id)
+        return db.get_or_404(models.User, user_id)
 
 
     return app

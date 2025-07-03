@@ -67,4 +67,11 @@ $(document).ready(function() {
             form.submit(); // Submit the form
         }
     });
+    // --- "Show password" functionality (ONLY for the main password field) ---
+    $("#togglePassword").click(function() {
+        const passwordField = $("#password");
+        const type = passwordField.attr("type") === "password" ? "text" : "password";
+        passwordField.attr("type", type);
+        $(this).find('i').toggleClass("fa-eye fa-eye-slash");
+    });
 });

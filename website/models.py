@@ -1,7 +1,6 @@
 from datetime import timedelta, datetime, timezone
 from sqlalchemy import Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.sql import func
 from website import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
@@ -20,6 +19,8 @@ class User(db.Model, UserMixin):
     created_at: Mapped[str] = mapped_column(db.DateTime(timezone = True), default=datetime.now(timezone.utc))
 
     reset_tokens: Mapped[list["ResetPassword"]] = relationship("ResetPassword", back_populates="user")
+
+    reservations: Mapped[list["Reservation"]] = relationship("Reservation", back_populates="client")
 
 
     def __init__(self, email: str, username: str, password_hash: str, is_admin: bool, confirmation_token: str, confirmed: bool):
@@ -41,6 +42,47 @@ class ResetPassword(db.Model):
     token_expire_at: Mapped[str] = mapped_column(db.DateTime(timezone = True), nullable= False)
 
     user: Mapped["User"] = relationship("User", back_populates="reset_tokens")
+
+
+class Employee(db.Model):
+    __tablename__ = 'employees'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    profile: Mapped[str] = mapped_column(String, nullable=True)
+    mail: Mapped[str] = mapped_column(String, nullable=False)
+    phone: Mapped[str] = mapped_column(String, nullable=False)
+
+
+    reservations: Mapped[list["Reservation"]] = relationship("Reservation", back_populates="employee")
+
+    fullday: Mapped[list["FullDay"]] = relationship("FullDay", back_populates="employee")
+
+
+class Reservation(db.Model):
+    __tablename__ = 'reservations'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    date: Mapped[str] = mapped_column(db.DateTime(timezone= True), nullable=False)
+    timeslot: Mapped[str] = mapped_column(String, nullable=False)
+
+    # Foreign key to Employee
+    employee_id: Mapped[int] = mapped_column(Integer, ForeignKey('employees.id'), nullable=False)
+
+    # Foreign key to User (client)
+    client_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'), nullable=False)
+
+
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="reservations")
+
+    client: Mapped["User"] = relationship("User", back_populates="reservations")
+
+
+class FullDay(db.Model):
+    __tablename__ = 'fullday'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    employee_id: Mapped[int] = mapped_column(Integer, ForeignKey('employees.id'), nullable=False)
+    date: Mapped[str] = mapped_column(db.DateTime(timezone=True), nullable= False)
+
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="fullday")
 
 
 def create_user(email, username, safe_password, confirmation_token, confirmed= 'no'):

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{% block title %}My Website{% endblock %}</title>
     <script>
@@ -41,7 +42,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <nav id="mainNavbar" class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm mb-5">
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="{{ url_for('views.home') }}">
           <i class="bi bi-calendar-check me-2"></i>MyWebsite
@@ -55,7 +56,7 @@
             {% if current_user.is_authenticated %}
               <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle me-1"></i> {{ current_user.username }}
+                  <i class="bi bi-person-circle me-1 profile-picture"></i> {{ current_user.username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -90,7 +91,7 @@
       </div>
     </nav>
 
-    <main class="main-content py-4 py-md-5">
+    <main class="main-content mt-5 py-4 py-md-5">
       <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}

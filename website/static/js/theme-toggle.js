@@ -1,4 +1,4 @@
-// --- THEME TOGGLER SCRIPT (CORRECTED) ---
+// --- SCRIPT PENTRU SCHIMBAREA TEMEI ---
 (() => {
     'use strict'
 
@@ -15,18 +15,12 @@
     };
 
     const setTheme = theme => {
-        // Set Bootstrap's native theme attribute (for Bootstrap components)
         document.documentElement.setAttribute('data-bs-theme', theme);
-
-        // Target the icon and the main <html> element
         const toggleButtonIcon = document.querySelector('#themeToggle i');
         const htmlElement = document.documentElement;
 
         if (theme === 'dark') {
-            // Add .dark-theme class for custom styles from style.css
             htmlElement.classList.add('dark-theme');
-
-            // Update button icon and state
             if (toggleButtonIcon) {
                 toggleButtonIcon.classList.remove('bi-moon-stars-fill');
                 toggleButtonIcon.classList.add('bi-sun-fill');
@@ -35,11 +29,8 @@
                 themeToggleButton.classList.add('active');
             }
         } else {
-            // Remove .dark-theme class for light mode
             htmlElement.classList.remove('dark-theme');
-
-            // Update button icon and state
-             if (toggleButtonIcon) {
+            if (toggleButtonIcon) {
                 toggleButtonIcon.classList.remove('bi-sun-fill');
                 toggleButtonIcon.classList.add('bi-moon-stars-fill');
             }
@@ -49,17 +40,14 @@
         }
     };
 
-    // Set the theme on initial page load
     setTheme(getPreferredTheme());
 
-    // Listen for changes in the OS theme preference
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
         if (!getStoredTheme()) {
             setTheme(getPreferredTheme());
         }
     });
 
-    // Add the click event listener to the toggle button
     if (themeToggleButton) {
         themeToggleButton.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-bs-theme');
@@ -68,4 +56,30 @@
             setTheme(newTheme);
         });
     }
-})()
+})();
+
+// --- SCRIPT PENTRU ASCUNDEREA BAREI DE NAVIGARE LA SCROLL ---
+(() => {
+    'use strict';
+
+    // Am actualizat selectorul pentru a se potrivi cu ID-ul tău: #mainNavbar
+    const navbar = document.querySelector('#mainNavbar');
+    let lastScrollTop = 0;
+
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                // Scroll în jos: ascunde bara de navigare
+                // Folosim înălțimea reală a barei pentru a o ascunde complet
+                navbar.style.top = `-${navbar.offsetHeight}px`;
+            } else {
+                // Scroll în sus: afișează instantaneu bara de navigare
+                navbar.style.top = '0';
+            }
+            // Actualizăm ultima poziție de scroll
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, false);
+    }
+})();
