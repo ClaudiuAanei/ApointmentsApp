@@ -5,6 +5,7 @@ from random import choice, shuffle, randint
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText #
 from dotenv import find_dotenv, load_dotenv
+
 PATH = find_dotenv()
 load_dotenv(PATH)
 
@@ -50,10 +51,10 @@ class Email:
 
 
         except smtplib.SMTPException as e:
-            print(f" Eroare SMTP generală: {e}")
+            print(f"Error SMTP: {e}")
 
         except Exception as e:
-            print(f" Eroare neașteptată: {e}")
+            print(f"Error SMTP: {e}")
 
 
     def send_confirmation_email(self, filepath: str, user_email , user_id, *args: tuple):

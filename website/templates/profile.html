@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{# --- MACROS (Final version with success, error, and password validation messages) --- #}
+{% macro details_form(id_prefix) %}
+<div class="list-group list-group-flush">
+    {# Profile Picture #}
+    <div class="list-group-item detail-item" data-field="picture">
+        <small class="text-muted d-block">Profile Picture</small>
+        <div class="d-flex align-items-center mt-2">
+            <input type="file" id="{{ id_prefix }}_profilePictureInput" accept="image/*" class="d-none">
+            <label for="{{ id_prefix }}_profilePictureInput" class="position-relative d-inline-block" style="cursor: pointer;">
+                <img src="https://placehold.co/100x100/EFEFEF/AAAAAA&text=Photo" id="{{ id_prefix }}_profilePicturePreview" class="rounded-circle" alt="User Photo" style="width: 100px; height: 100px; object-fit: cover; box-shadow: var(--card-shadow); border: 3px solid var(--card-border-color);">
+                <button class="btn rounded-circle position-absolute" style="color: #333; background-color: transparent; border: none; bottom: 5px; right: 5px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-pencil-alt" style="font-size: 16px;"></i>
+                </button>
+            </label>
+        </div>
+    </div>
+
+    {# First Name #}
+    <div class="list-group-item detail-item" data-field="first_name">
+        <div class="display-view">
+            <small class="text-muted d-block">First Name</small>
+            <span class="fw-bold"></span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">First Name</label>
+            <div class="d-flex align-items-center gap-2">
+                <input type="text" class="form-control" value="">
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button">Save</button>
+            </div>
+            <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Edit</button>
+    </div>
+
+    {# Last Name #}
+    <div class="list-group-item detail-item" data-field="last_name">
+        <div class="display-view">
+            <small class="text-muted d-block">Last Name</small>
+            <span class="fw-bold"></span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">Last Name</label>
+            <div class="d-flex align-items-center gap-2">
+                <input type="text" class="form-control" value="">
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button">Save</button>
+            </div>
+            <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Edit</button>
+    </div>
+
+    {# Email #}
+    <div class="list-group-item detail-item" data-field="email">
+        <div class="display-view">
+            <small class="text-muted d-block">Email</small>
+            <span class="fw-bold"></span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">Email</label>
+            <div class="d-flex align-items-center gap-2">
+                <input type="email" class="form-control" value="">
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button">Save</button>
+            </div>
+            <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Edit</button>
+    </div>
+
+    {# Mobile Number #}
+    <div class="list-group-item detail-item" data-field="phone">
+        <div class="display-view">
+            <small class="text-muted d-block">Mobile Number</small>
+            <span class="fw-bold"></span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">Mobile Number</label>
+            <div class="d-flex align-items-start gap-2">
+                <div class="flex-grow-1">
+                    <div class="input-group">
+                        <select class="form-select flex-grow-0 w-auto phone-prefix">
+                            <option value="+32">BE (+32)</option>
+                            <option value="+31">NL (+31)</option>
+                        </select>
+                        <input type="tel" class="form-control phone-number" placeholder="712 345 678">
+                    </div>
+                    <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+                </div>
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button">Save</button>
+            </div>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Edit</button>
+    </div>
+
+    {# Birthday #}
+    <div class="list-group-item detail-item" data-field="birthday">
+        <div class="display-view">
+            <small class="text-muted d-block">Birthday</small>
+            <span class="fw-bold"></span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">Birthday</label>
+            <div class="d-flex align-items-center gap-2">
+                <input type="date" class="form-control" value="">
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button">Save</button>
+            </div>
+            <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Edit</button>
+    </div>
+
+    {# Password #}
+    <div class="list-group-item detail-item" data-field="password">
+        <div class="display-view">
+            <small class="text-muted d-block">Password</small>
+            <span class="fw-bold">••••••••••••••••••••••••</span>
+            <small class="text-success d-none mt-1 update-success-msg fw-semibold"></small>
+        </div>
+        <div class="edit-view">
+            <label class="form-label small text-muted">New Password</label>
+            <div class="d-flex align-items-center gap-2">
+                <input type="password" class="form-control" placeholder="Enter new password">
+                <button class="btn btn-sm btn-primary save-btn flex-shrink-0" type="button" disabled>Save</button>
+            </div>
+            <div class="password-conditions mt-2 small">
+                <p id="{{ id_prefix }}_pw-length" class="condition-item text-muted mb-1"><i class="bi bi-x-circle me-2"></i>Between 8 and 64 characters</p>
+                <p id="{{ id_prefix }}_pw-uppercase" class="condition-item text-muted mb-1"><i class="bi bi-x-circle me-2"></i>At least one uppercase letter</p>
+                <p id="{{ id_prefix }}_pw-lowercase" class="condition-item text-muted mb-1"><i class="bi bi-x-circle me-2"></i>At least one lowercase letter</p>
+                <p id="{{ id_prefix }}_pw-digit" class="condition-item text-muted mb-1"><i class="bi bi-x-circle me-2"></i>At least one digit</p>
+                <p id="{{ id_prefix }}_pw-special" class="condition-item text-muted mb-1"><i class="bi bi-x-circle me-2"></i>At least one special character (!@#$%^&*)</p>
+            </div>
+            <small class="text-danger d-none mt-1 update-error-msg fw-semibold"></small>
+        </div>
+        <button class="btn btn-link text-decoration-none edit-btn position-absolute top-0 end-0 mt-2">Change</button>
+    </div>
+</div>
+<div class="card bg-transparent mt-4 border-danger border-2">
+    <div class="card-body text-center text-danger">
+        <h6 class="fw-bold">Delete Account</h6>
+        <p class="text-muted small">Once you delete your account, there is no going back. Please be certain.</p>
+        <button class="btn btn-danger">Delete My Account</button>
+    </div>
+</div>
+{% endmacro %}
+
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+{# --- MOBILE VIEW (Offcanvas) --- #}
+<div class="d-lg-none">
+    <header class="d-flex align-items-center p-3">
+        <a href="{{ url_for('views.profile') }}">
+            <img src="https://placehold.co/100x100/EFEFEF/AAAAAA&text=Photo" class="rounded-circle user-photo-main" alt="User Photo" style="width: 100px; height: 100px; object-fit: cover; box-shadow: var(--card-shadow); border: 3px solid var(--card-border-color);">
+        </a>
+        <div class="ms-3">
+            <h1 class="h5 fw-bold mb-0 user-full-name"></h1>
+            <p class="text-muted mb-0 small">Web Developer</p>
+        </div>
+    </header>
+
+    <main class="mt-3 px-2">
+        <div class="d-grid gap-2">
+            <h4 class="mb-1 mx-2 h6 text-muted">My space</h4>
+            <button class="btn profile-menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAppointments" aria-controls="offcanvasAppointments"><i class="bi bi-calendar-check"></i><span>Appointments</span></button>
+            <button class="btn profile-menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDetails" aria-controls="offcanvasDetails"><i class="bi bi-person-circle"></i><span>Personal details</span></button>
+            <button class="btn profile-menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNotifications" aria-controls="offcanvasNotifications"><i class="bi bi-bell-fill"></i><span>Notification</span></button>
+            <button class="btn profile-menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasReviews" aria-controls="offcanvasReviews"><i class="bi bi-star-fill"></i><span>Reviews</span></button>
+        </div>
+    </main>
+
+    {# Offcanvas for Appointments #}
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAppointments" aria-labelledby="offcanvasAppointmentsLabel">
+        <div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvasAppointmentsLabel">Appointments</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button></div>
+        <div class="offcanvas-body d-flex flex-column p-0">
+            <ul class="nav nav-pills nav-fill p-2" role="tablist">
+                <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#upcoming-tab-pane-mobile" type="button" role="tab" aria-selected="true">Upcoming</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#past-tab-pane-mobile" type="button" role="tab" aria-selected="false">Past</button></li>
+            </ul>
+            <div class="tab-content flex-grow-1 p-3" style="overflow-y: auto;">
+                <div class="tab-pane fade show active" id="upcoming-tab-pane-mobile" role="tabpanel" tabindex="0">
+                    <div id="upcoming-appointments-mobile" class="d-grid gap-3"></div>
+                    <div class="mt-5 bg-body d-flex justify-content-center"><a href=" {{ url_for('views.appointments_manager') }} " class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i>Make an Appointment</a></div>
+                </div>
+                <div class="tab-pane fade" id="past-tab-pane-mobile" role="tabpanel" tabindex="0">
+                    <div id="past-appointments-mobile" class="d-grid gap-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Offcanvas for Details #}
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDetails" aria-labelledby="offcanvasDetailsLabel">
+        <div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvasDetailsLabel">Personal details</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button></div>
+        <div class="offcanvas-body" id="details-content-mobile">
+            {{ details_form("mobile") }}
+        </div>
+    </div>
+</div>
+
+
+{# --- DESKTOP VIEW (Tabs) --- #}
+<div class="container-fluid p-lg-4 d-none d-lg-block" style="max-width: 1200px;">
+    <header class="d-flex align-items-center mb-4">
+        <a href="{{ url_for('views.profile') }}"><img src="https://placehold.co/100x100/EFEFEF/AAAAAA&text=Photo" class="rounded-circle user-photo-main" alt="User Photo" style="width: 100px; height: 100px; object-fit: cover; box-shadow: var(--card-shadow); border: 3px solid var(--card-border-color);"></a>
+        <div class="ms-3">
+            <h1 class="h4 fw-bold mb-0 user-full-name"></h1>
+            <p class="text-muted mb-0 small user-email"></p>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="p-3 d-flex flex-column">
+                <h4 class="mb-3 h6 text-muted">My space</h4>
+                <nav class="nav nav-pills flex-column profile-desktop-menu" id="desktop-menu-tab" role="tablist">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#desktop-appointments" type="button" role="tab" aria-selected="true"><i class="bi bi-calendar-check"></i><span>Appointments</span></button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#desktop-details" type="button" role="tab" aria-selected="false"><i class="bi bi-person-circle"></i><span>My Details</span></button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#desktop-notifications" type="button" role="tab" aria-selected="false"><i class="bi bi-bell-fill"></i><span>Notification</span></button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#desktop-reviews" type="button" role="tab" aria-selected="false"><i class="bi bi-star-fill"></i><span>Reviews</span></button>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="tab-content" id="desktop-menu-tabContent">
+                <div class="tab-pane fade show active" id="desktop-appointments" role="tabpanel">
+                    <div class="p-3">
+                        <h4 class="mb-3 h6">Appointments</h4>
+                        <ul class="nav nav-pills nav-fill mb-5" role="tablist">
+                            <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-upcoming-desktop" type="button" role="tab" aria-selected="true">Upcoming</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-past-desktop" type="button" role="tab" aria-selected="false">Past</button></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="pills-upcoming-desktop" role="tabpanel">
+                                <div id="upcoming-appointments-desktop" class="d-grid gap-3"></div>
+                                <div class="d-grid mt-4"><a href="{{ url_for('views.appointments_manager') }}" class="btn btn-primary"><i class="bi bi-plus-circle-fill me-2"></i>Book an Appointment</a></div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-past-desktop" role="tabpanel">
+                                <div id="past-appointments-desktop" class="d-grid gap-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="desktop-details" role="tabpanel">
+                    <div class="p-3">
+                        <h4 class="mb-4 h6">Personal details</h4>
+                        <div id="details-content-desktop">{{ details_form("desktop") }}</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="desktop-notifications" role="tabpanel">{# ... Notifications content ... #}</div>
+                <div class="tab-pane fade" id="desktop-reviews" role="tabpanel">{# ... Reviews content ... #}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ url_for('static', filename='js/my_space.js') }}"></script>
+{% endblock %}

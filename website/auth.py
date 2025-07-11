@@ -10,7 +10,6 @@ from .forms import Registration, LoginForm, ResetPasswordForm, RequestResetPassw
 from website.models import User, ResetPassword, create_user
 from .emails import Email, UniqueCode
 
-
 uc = UniqueCode()
 
 PATH = find_dotenv()
@@ -68,11 +67,14 @@ def gmail_login():
     if not user:
         email = Email()
         new_user = create_user(user_info['email'],
+                               user_info['given_name'],
+                               user_info['family_name'],
                                user_info['name'],
                                uc.generate(),
                                email.unique_code,
+                               user_info['picture'],
                                confirmed= 'yes')
-        confirmed = email.send_confirmation_email(
+        email.send_confirmation_email(
             'website/templates/emails/confirmed.html',
             new_user.email,
             new_user.id,
@@ -96,14 +98,16 @@ def register():
     form = Registration()
 
     if form.validate_on_submit():
-        username = form.username.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
         user_email = form.email.data
         password = form.password.data
 
 
         # Create user
         email = Email()
-        new_user = create_user(user_email, username, password, email.unique_code)
+        username = first_name + " " + last_name
+        new_user = create_user(user_email, first_name, last_name, username, password, email.unique_code)
         email.send_confirmation_email( 'website/templates/emails/confirmation.html',
                                   new_user.email ,
                                   new_user.id,
@@ -133,14 +137,18 @@ def confirmation_account():
     user = db.session.execute(db.select(User).where(User.id == int(user_id))).scalar()
 
     valid_token = user.token_expiration.replace(tzinfo=timezone.utc) > datetime.now(timezone.utc)
-    print(valid_token)
 
-    if (user and user.confirmation_token == token) and valid_token:
+    if user.confirmed:
+        flash('Your account is already confirmed.')
+
+    elif (user and user.confirmation_token == token) and valid_token:
         user.confirmed = True
+        flash('Your account was successfuly confirmed.')
         db.session.commit()
         login_user(user)
+
     else:
-        print('Token expirat')
+        flash('This link is not available anymore.')
 
 
     return redirect(url_for('views.home'))
@@ -163,7 +171,6 @@ def forgot_password():
 
         unique_selector = uc.generate()
 
-
         email = Email()
 
         hashed_token = generate_password_hash(
@@ -172,10 +179,11 @@ def forgot_password():
                         salt_length=8
                     )
 
+
         email.send_reset_password_email("website/templates/emails/reset_password.html",
                                         unique_selector,
                                         user.email if user else None,
-                                        ('[USERNAME]', user.username),
+                                        ('[USERNAME]', user.username if user else '[USERNAME]'),
                                         ('[EXPIRATION_MINUTES]', '15'),
                                         ('[CURRENT_YEAR]', str(datetime.now().year))
                                         )
@@ -198,7 +206,6 @@ def forgot_password():
                 db.session.query(ResetPassword).filter(ResetPassword.token_expire_at < fifteen_minutes_ago).delete()
                 db.session.commit()
             except Exception as e:
-                print(f"Error cleaning up expired reset tokens: {e}")
                 db.session.rollback()
 
             return jsonify({
@@ -257,17 +264,22 @@ def reset_password():
 
 
 # Json
-@auth.route('/check_username', methods=['POST'])
-def check_username():
-    username = request.form.get('username')
+@auth.route('/check_first_name', methods=['POST'])
+def check_first_name():
+    username = request.form.get('first_name')
+
     if not username:
+        return jsonify({'exists': False, 'error': 'First name is missing.'}), 200
 
-        return jsonify({'exists': False, 'error': 'Nume de utilizator lipsă.'}), 200
+    return jsonify({'exists': False}), 200
 
-    user = User.query.filter_by(username=username).first()
-    if user:
 
-        return jsonify({'exists': True}), 200
+@auth.route('/check_last_name', methods=['POST'])
+def check_last_name():
+    username = request.form.get('last_name')
+
+    if not username:
+        return jsonify({'exists': False, 'error': 'Last name is missing.'}), 200
 
     return jsonify({'exists': False}), 200
 
@@ -277,12 +289,12 @@ def check_email():
     email = request.form.get('email')
 
     if not email:
-        return jsonify({'exists': False, 'error': 'Email lipsă.'}), 200 # <-- Modificat la 200 OK
+        return jsonify({'exists': False, 'error': 'Email is missing.'}), 400 # <-- Modificat la 200 OK
 
     user = User.query.filter_by(email=email).first()
 
     if user:
-        return jsonify({'exists': True}), 200
+        return jsonify({'exists': True}), 400
 
     return jsonify({'exists': False}), 200
 

@@ -20,16 +20,40 @@ $(document).ready(function() {
 
     $("#registrationForm").validate({
         rules: {
-            username: {
+            first_name: {
                 required: true,
-                minlength: 4,
+                minlength: 2,
                 maxlength: 20,
                 remote: {
-                    url: "/check_username", // Make sure this URL is correct! (e.g., /auth/check_username if you have a blueprint prefix)
+                    url: "/check_first_name", // Make sure this URL is correct! (e.g., /auth/check_first_name if you have a blueprint prefix)
                     type: "post",
                     data: {
-                        username: function() {
-                            return $("#username").val();
+                        first_name: function() {
+                            return $("#first_name").val();
+                        },
+                        csrf_token: function() {
+                            return $('input[name="csrf_token"]').val();
+                        }
+                    },
+                    dataFilter: function(response) {
+                        var parsedResponse = JSON.parse(response);
+                        if (parsedResponse.exists) {
+                            return false; // Return FALSE (boolean) to indicate validation error
+                        }
+                        return true; // Return TRUE (boolean) to indicate successful validation
+                    }
+                }
+            },
+            last_name: {
+                required: true,
+                minlength: 2,
+                maxlength: 20,
+                remote: {
+                    url: "/check_last_name", // Make sure this URL is correct! (e.g., /auth/check_last_name if you have a blueprint prefix)
+                    type: "post",
+                    data: {
+                        last_name: function() {
+                            return $("#last_name").val();
                         },
                         csrf_token: function() {
                             return $('input[name="csrf_token"]').val();
@@ -84,11 +108,15 @@ $(document).ready(function() {
             }
         },
         messages: {
-            username: {
-                required: "Please enter a username.",
-                minlength: "Username must be between 4 and 20 characters.",
-                maxlength: "Username must be between 4 and 20 characters.",
-                remote: "This username is already taken."
+            first_name: {
+                required: "Please enter your first name.",
+                minlength: "First name must be between 2 and 20 characters.",
+                maxlength: "First name must be between 2 and 20 characters.",
+            },
+            last_name: {
+                required: "Please enter your last name.",
+                minlength: "Last name must be between 2 and 20 characters.",
+                maxlength: "Last name must be between 2 and 20 characters.",
             },
             email: {
                 required: "Please enter your email address.",
@@ -125,8 +153,10 @@ $(document).ready(function() {
                 targetContainer = $("#password-error-container");
             } else if (element.attr("id") === "confirm_password") {
                 targetContainer = $("#confirm-password-error-container");
-            } else if (element.attr("id") === "username") {
-                targetContainer = $("#username-error-container");
+            } else if (element.attr("id") === "first_name") {
+                targetContainer = $("#first_name-error-container");
+            } else if (element.attr("id") === "last_name") {
+                targetContainer = $("#last_name-error-container");
             } else if (element.attr("id") === "email") {
                 targetContainer = $("#email-error-container");
             } else {

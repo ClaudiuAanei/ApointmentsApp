@@ -6,39 +6,39 @@
 :root {
   /* Core Colors */
   --body-bg: #e9ecef;
-  --body-color: #343a40;
+  --body-color: #212529;
   --text-muted-color: #6c757d;
-  --link-color: #007bff;
-  --link-hover-color: #0056b3;
-  --link-color-rgb: 0, 123, 255;
-  --hr-color: rgba(0, 0, 0, 0.15);
+  --link-color: #0d6efd;
+  --link-hover-color: #0b5ed7;
+  --link-color-rgb: 13, 110, 253;
+  --hr-color: rgba(0, 0, 0, 0.1);
 
   /* Disabled States */
-  --disable-text-color: #adb5bd;
-  --disable-bg-color: #f8f9fa;
+  --disable-text-color: #6c757d;
+  --disable-bg-color: #e9ecef;
 
   /* Navbar */
   --navbar-custom-bg: #ffffff;
-  --navbar-custom-text: #343a40;
-  --navbar-custom-link-hover: #6c757d;
-  --navbar-shadow: rgba(0, 0, 0, 0.1);
-  --navbar-link-hover-effect-color: rgba(0, 0, 0, 0.1);
+  --navbar-custom-text: #212529;
+  --navbar-custom-link-hover: #0d6efd;
+  --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); /* Umbră mai subtilă */
+  --navbar-link-hover-effect-color: rgba(13, 110, 253, 0.1);
 
   /* Cards, Modals, Panels */
   --card-bg: #ffffff;
-  --card-border-color: rgba(0, 0, 0, 0.1);
-  --card-text: #333d47;
-  --card-shadow: rgba(0, 0, 0, 0.08);
+  --card-border-color: #dee2e6;
+  --card-text: #212529;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Umbră mai fină */
 
   /* Buttons */
-  --btn-primary-bg: #007bff;
+  --btn-primary-bg: #0d6efd;
   --btn-primary-color: #ffffff;
-  --btn-primary-hover-bg: #0056b3;
+  --btn-primary-hover-bg: #0b5ed7;
   --btn-primary-hover-color: #ffffff;
   --btn-secondary-bg: #6c757d;
   --btn-secondary-color: #ffffff;
   --btn-secondary-hover-bg: #5a6268;
-  --btn-outline-secondary-border: #adb5bd;
+  --btn-outline-secondary-border: #6c757d;
   --btn-outline-secondary-color: #6c757d;
   --btn-outline-secondary-hover-bg: #6c757d;
   --btn-outline-secondary-hover-color: #ffffff;
@@ -48,21 +48,21 @@
   --form-control-bg: #ffffff;
   --form-control-border: #ced4da;
   --form-control-placeholder: #6c757d;
-  --form-control-focus-border: #007bff;
-  --form-control-focus-shadow: rgba(0, 123, 255, 0.15);
+  --form-control-focus-border: #86b7fe; /* Albastru deschis pentru focus */
+  --form-control-focus-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Strălucire albastră la focus */
   --input-icon-color: #6c757d;
 
   /* Theme Toggle Switch (Light) */
   --toggle-track-bg: #e9ecef;
   --toggle-track-border: #dee2e6;
   --toggle-thumb-bg: #ffffff;
-  --toggle-thumb-shadow: rgba(0, 0, 0, 0.1);
-  --toggle-icon-color: #6c757d;
+  --toggle-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Umbră simplificată */
+  --toggle-icon-color: #0d6efd;
 
   /* Scrollbar (Light) */
   --scrollbar-track-bg: transparent;
-  --scrollbar-thumb-bg: rgba(0, 0, 0, 0.25);
-  --scrollbar-thumb-hover-bg: rgba(0, 0, 0, 0.4);
+  --scrollbar-thumb-bg: rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb-hover-bg: rgba(0, 0, 0, 0.35);
 
   /* Transitions */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -71,64 +71,64 @@
 /* --- Dark Theme --- */
 .dark-theme {
   /* Core Colors */
-  --body-bg: #212529;
-  --body-color: #e9ecef;
-  --text-muted-color: #adb5bd;
-  --link-color: #6daffb;
-  --link-hover-color: #3b82f6;
-  --link-color-rgb: 109, 175, 251;
-  --hr-color: rgba(255, 255, 255, 0.15);
+  --body-bg: #1a1d21;
+  --body-color: #dee2e6;
+  --text-muted-color: #8892b0;
+  --link-color: #3b82f6;
+  --link-hover-color: #60a5fa;
+  --link-color-rgb: 59, 130, 246;
+  --hr-color: rgba(255, 255, 255, 0.1);
 
   /* Disabled States */
-  --disable-text-color: #46484b;
-  --disable-bg-color: #343a40;
+  --disable-text-color: #495057;
+  --disable-bg-color: #212529;
 
   /* Navbar */
-  --navbar-custom-bg: #2c3034;
+  --navbar-custom-bg: #212529;
   --navbar-custom-text: #f8f9fa;
-  --navbar-custom-link-hover: #ffffff;
-  --navbar-shadow: rgba(0, 0, 0, 0.5);
-  --navbar-link-hover-effect-color: rgba(109, 175, 251, 0.1);
+  --navbar-custom-link-hover: #3b82f6;
+  --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Umbră mai subtilă pentru dark mode */
+  --navbar-link-hover-effect-color: rgba(59, 130, 246, 0.1);
 
   /* Cards, Modals, Panels */
-  --card-bg: #343a40;
-  --card-border-color: rgba(255, 255, 255, 0.1);
-  --card-text: #e9ecef;
-  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-bg: #212529;
+  --card-border-color: #343a40;
+  --card-text: #dee2e6;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Umbră mai fină pentru dark mode */
 
   /* Buttons */
-  --btn-primary-bg: #6daffb;
+  --btn-primary-bg: #3b82f6;
   --btn-primary-color: #ffffff;
-  --btn-primary-hover-bg: #52a3ff;
+  --btn-primary-hover-bg: #1d4ed8;
   --btn-primary-hover-color: #ffffff;
-  --btn-secondary-bg: #5a6268;
+  --btn-secondary-bg: #495057;
   --btn-secondary-color: #ffffff;
-  --btn-secondary-hover-bg: #495057;
+  --btn-secondary-hover-bg: #6c757d;
   --btn-outline-secondary-border: #6c757d;
   --btn-outline-secondary-color: #adb5bd;
-  --btn-outline-secondary-hover-bg: #adb5bd;
-  --btn-outline-secondary-hover-color: #212529;
+  --btn-outline-secondary-hover-bg: #6c757d;
+  --btn-outline-secondary-hover-color: #ffffff;
   --btn-close-filter: invert(1) grayscale(100%) brightness(200%);
 
   /* Forms */
-  --form-control-bg: #2d3035;
+  --form-control-bg: #2c3034;
   --form-control-border: #495057;
-  --form-control-placeholder: #adb5bd;
-  --form-control-focus-border: #6daffb;
-  --form-control-focus-shadow: rgba(109, 175, 251, 0.15);
-  --input-icon-color: #adb5bd;
+  --form-control-placeholder: #8892b0;
+  --form-control-focus-border: #3b82f6;
+  --form-control-focus-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25); /* Strălucire albastră la focus */
+  --input-icon-color: #8892b0;
 
   /* Theme Toggle Switch (Dark) */
   --toggle-track-bg: #495057;
   --toggle-track-border: #6c757d;
   --toggle-thumb-bg: #f8f9fa;
-  --toggle-thumb-shadow: rgba(0, 0, 0, 0.4);
-  --toggle-icon-color: #343a40;
+  --toggle-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Umbră simplificată */
+  --toggle-icon-color: #3b82f6;
 
   /* Scrollbar (Dark) */
   --scrollbar-track-bg: transparent;
-  --scrollbar-thumb-bg: rgba(255, 255, 255, 0.2);
-  --scrollbar-thumb-hover-bg: rgba(255, 255, 255, 0.35);
+  --scrollbar-thumb-bg: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover-bg: rgba(255, 255, 255, 0.3);
 }
 
 /* =================================================================== */
@@ -161,12 +161,11 @@ hr {
 /* 3. NAVBAR
 /* =================================================================== */
 #mainNavbar {
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1030;
   background-color: var(--navbar-custom-bg) !important;
-  box-shadow: 0 0.1rem 0.5rem var(--navbar-shadow) !important;
+  box-shadow: var(--navbar-shadow) !important;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, top 0.3s ease-in-out;
 }
 
@@ -249,7 +248,7 @@ hr {
   color: var(--card-text) !important;
   border: 1px solid var(--card-border-color) !important;
   border-radius: 0.5rem !important;
-  box-shadow: 0 0.5rem 1.5rem var(--card-shadow) !important;
+  box-shadow: var(--card-shadow) !important;
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
 }
@@ -343,7 +342,7 @@ hr {
   background-color: var(--form-control-bg);
   color: var(--body-color);
   border-color: var(--form-control-focus-border);
-  box-shadow: 0 0 0 0.2rem var(--form-control-focus-shadow);
+  box-shadow: var(--form-control-focus-shadow);
 }
 
 .form-control.is-invalid, .form-control.is-valid {
@@ -452,7 +451,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 3px var(--toggle-thumb-shadow);
+  box-shadow: var(--toggle-thumb-shadow);
   position: absolute;
   left: 0px;
   transform: translateX(0);
@@ -616,7 +615,7 @@ hr {
 /* --- Time Slots --- */
 .time-slots-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 0.5fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 0.5fr));
   gap: 10px;
 }
 
@@ -690,28 +689,6 @@ hr {
 /* 10. RESPONSIVE MEDIA QUERIES
 /* =================================================================== */
 
-/* --- Navbar Adjustments --- */
-@media (max-width: 991.98px) {
-  #mainNavbar .navbar-brand {
-    font-size: 1.25rem;
-    letter-spacing: 0;
-  }
-  #mainNavbar .navbar-brand i {
-    font-size: 1.45rem;
-    margin-right: 0.5rem;
-  }
-}
-
-@media (max-width: 767.98px) {
-  #mainNavbar .navbar-brand {
-    font-size: 1.15rem;
-    letter-spacing: 0;
-  }
-  #mainNavbar .navbar-brand i {
-    font-size: 1.35rem;
-    margin-right: 0.4rem;
-  }
-}
 
 /* --- Calendar Adjustments for Small Screens --- */
 @media (max-width: 420px) {
@@ -725,4 +702,102 @@ hr {
   .calendar-header h2 {
     font-size: 1.2rem;
   }
+}
+
+/* =================================================================== */
+/* ADĂUGIRI PENTRU PAGINA DE PROFIL
+/* =================================================================== */
+
+/* --- Avatar Imagine Profil --- */
+.profile-avatar-sm {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.profile-avatar-lg {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+}
+
+/* --- Butoane Meniu (Mobil & Desktop) --- */
+.profile-menu-button, .profile-desktop-menu .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 0.25rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--body-color);
+    background-color: transparent;
+    border: none; /* Am eliminat bordura */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.profile-menu-button:hover, .profile-desktop-menu .nav-link:hover {
+    background-color: var(--navbar-link-hover-effect-color);
+    color: var(--link-color);
+}
+
+.profile-desktop-menu .nav-link.active {
+    background-color: rgba(var(--link-color-rgb), 0.1);
+    color: var(--link-color);
+    font-weight: 600;
+}
+
+.profile-menu-button .bi, .profile-desktop-menu .nav-link .bi {
+    margin-right: 1rem;
+    font-size: 1.4rem;
+    width: 25px; /* Aliniere iconițe */
+}
+
+/* Adaugă spațiu de 5px între butoanele din meniul desktop */
+.profile-desktop-menu .nav-link:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+/* --- Secțiune Detalii Personale --- */
+.detail-item {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    position: relative; /* Necesar pentru butonul Edit */
+    border: none !important; /* Suprascrie stilul list-group */
+}
+.detail-item .edit-view {
+    display: none; /* Ascuns implicit */
+}
+.detail-item .edit-btn {
+    color: var(--link-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.list-group-flush .list-group-item:last-child {
+    border-bottom-width: 0;
+}
+
+/* --- Stele Recenzii --- */
+.star-rating .bi-star-fill, .star-rating .bi-star-half {
+    color: #ffc107;
+}
+
+/* --- Stiluri Comportament Offcanvas (Original) --- */
+.offcanvas.offcanvas-start {
+    --bs-offcanvas-width: 100vw;
+}
+
+/* Restaurează comportamentul pentru ecrane mai mari de 992px */
+@media (min-width: 992px) {
+    .offcanvas.offcanvas-start {
+        --bs-offcanvas-width: 992px;
+    }
+}
+
+.list-group {
+    --bs-list-group-bg: None;
+}
+
+.form-control,
+.form-select {
+    height: 45px; /* Or whatever height you prefer */
 }

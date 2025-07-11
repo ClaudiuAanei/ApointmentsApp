@@ -3,9 +3,8 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-10 col-md-8 col-sm-10 col-lg-6 col-xl-5">
+        <div class="col-12 col-md-8 col-sm-10 col-lg-6 col-xl-5">
             <div class="login-box p-4 border rounded shadow-sm"> {# Added login-box styling #}
                 <h2 class="mb-4 text-center">Create Your Account</h2> {# Updated heading text #}
 
@@ -26,11 +25,22 @@
                 <form method="POST" action="{{ url_for('auth.register') }}" novalidate id="registrationForm">
                     {{ form.csrf_token }}
                     <div class="mb-2">
-                        {{ form.username.label(class="form-label") }}
-                        {{ form.username(class="form-control", id="username") }}
-                        <div id="username-error-container"></div>
-                        {% if form.username.errors %}
-                            {% for error in form.username.errors %}
+                        {{ form.first_name.label(class="form-label") }}
+                        {{ form.first_name(class="form-control", id="first_name") }}
+                        <div id="first_name-error-container"></div>
+                        {% if form.first_name.errors %}
+                            {% for error in form.first_name.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-2">
+                        {{ form.last_name.label(class="form-label") }}
+                        {{ form.last_name(class="form-control", id="last_name") }}
+                        <div id="last_name-error-container"></div>
+                        {% if form.last_name.errors %}
+                            {% for error in form.last_name.errors %}
                                 <div class="invalid-feedback d-block">{{ error }}</div>
                             {% endfor %}
                         {% endif %}
@@ -96,7 +106,7 @@
             </div> {# End of login-box #}
         </div>
     </div>
-</div>
+
 
 
 

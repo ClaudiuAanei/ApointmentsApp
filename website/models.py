@@ -9,23 +9,35 @@ from werkzeug.security import generate_password_hash
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(Integer, primary_key = True)
-    email: Mapped[str] = mapped_column(String, unique = True, nullable = False)
     username: Mapped[str] = mapped_column(String, nullable = False)
-    password_hash: Mapped[str] = mapped_column(String, nullable = False)
-    is_admin: Mapped[bool] = mapped_column(Boolean, nullable = False)
+    first_name: Mapped[str] = mapped_column(String(40), nullable=False)
+    last_name: Mapped[str] = mapped_column(String(40), nullable=False)
+    email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    password_hash: Mapped[str] = mapped_column(String, nullable=False)
+    picture: Mapped[str] = mapped_column(String, nullable= True)
+    phone: Mapped[str] = mapped_column(String(15), nullable=True)
+    birthday: Mapped[str] = mapped_column(db.DateTime(timezone = True), default=datetime(2000,1,1))
     confirmation_token: Mapped[str] = mapped_column(String, nullable = False)
     token_expiration: Mapped[str] = mapped_column(db.DateTime(timezone = True), default=datetime.now(timezone.utc) + timedelta(days= 1))
     confirmed: Mapped[bool] = mapped_column(Boolean, nullable = False)
     created_at: Mapped[str] = mapped_column(db.DateTime(timezone = True), default=datetime.now(timezone.utc))
+    is_admin: Mapped[bool] = mapped_column(Boolean, nullable = False)
 
     reset_tokens: Mapped[list["ResetPassword"]] = relationship("ResetPassword", back_populates="user")
 
-    reservations: Mapped[list["Reservation"]] = relationship("Reservation", back_populates="client")
+    appointments: Mapped[list["Appointments"]] = relationship("Appointments", back_populates="client")
 
 
-    def __init__(self, email: str, username: str, password_hash: str, is_admin: bool, confirmation_token: str, confirmed: bool):
+    def __init__(self, email: str,
+                 first_name: str, last_name: str, username: str, picture,
+                 password_hash: str, is_admin: bool,
+                 confirmation_token: str, confirmed: bool
+                 ):
         self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
         self.username = username
+        self.picture = picture
         self.password_hash = password_hash
         self.is_admin = is_admin
         self.confirmation_token = confirmation_token
@@ -53,16 +65,17 @@ class Employee(db.Model):
     phone: Mapped[str] = mapped_column(String, nullable=False)
 
 
-    reservations: Mapped[list["Reservation"]] = relationship("Reservation", back_populates="employee")
+    appointments: Mapped[list["Appointments"]] = relationship("Appointments", back_populates="employee")
 
     fullday: Mapped[list["FullDay"]] = relationship("FullDay", back_populates="employee")
 
 
-class Reservation(db.Model):
-    __tablename__ = 'reservations'
+class Appointments(db.Model):
+    __tablename__ = 'appointments'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     date: Mapped[str] = mapped_column(db.DateTime(timezone= True), nullable=False)
     timeslot: Mapped[str] = mapped_column(String, nullable=False)
+    status: Mapped[str] = mapped_column(String, default='Unconfirmed', nullable=False)
 
     # Foreign key to Employee
     employee_id: Mapped[int] = mapped_column(Integer, ForeignKey('employees.id'), nullable=False)
@@ -71,9 +84,9 @@ class Reservation(db.Model):
     client_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'), nullable=False)
 
 
-    employee: Mapped["Employee"] = relationship("Employee", back_populates="reservations")
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="appointments")
 
-    client: Mapped["User"] = relationship("User", back_populates="reservations")
+    client: Mapped["User"] = relationship("User", back_populates="appointments")
 
 
 class FullDay(db.Model):
@@ -85,10 +98,17 @@ class FullDay(db.Model):
     employee: Mapped["Employee"] = relationship("Employee", back_populates="fullday")
 
 
-def create_user(email, username, safe_password, confirmation_token, confirmed= 'no'):
+def create_user(
+        email: str, first_name: str, last_name: str, username: str,
+        safe_password: str, confirmation_token: str,
+        picture="", confirmed= 'no'
+    ):
     new_user = User(
         email=email,
+        first_name= first_name,
+        last_name= last_name,
         username=username,
+        picture=picture if picture else None,
         password_hash=generate_password_hash(password= safe_password, method= "pbkdf2:sha256", salt_length= 8),
         is_admin=False,
         confirmation_token=confirmation_token,

@@ -6,9 +6,15 @@ from website.models import User
 
 class Registration(FlaskForm):
 
-    username = StringField('Your name', validators=[
-        DataRequired(message="Enter your name."),
-        Length(min=4, max=20, message='Username must have between 4 and 20 characters')
+    first_name = StringField('First Name', validators=[
+        DataRequired(message="Enter your first name."),
+        Length(min=2, max=20, message='First name must have between 2 and 20 characters')
+    ]
+                           )
+
+    last_name = StringField('Last Name', validators=[
+        DataRequired(message="Enter your last name."),
+        Length(min=2, max=20, message='Username must have between 2 and 20 characters')
     ]
                            )
 
@@ -31,12 +37,6 @@ class Registration(FlaskForm):
                                      )
 
     submit = SubmitField('Register')
-
-
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('User already exists.')
 
 
     def validate_email(self, email):
