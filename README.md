@@ -8,66 +8,75 @@ and a personal profile page for users to view their appointment history and mana
 
 ---
 
-✨ Key Features
+## ✨ Key Features
 
-User Authentication:
+* User Authentication:
     * Secure user registration with email confirmation.
     * Standard login with email and password.
     * Login/Register with Google (OAuth 2.0).
     * Secure password reset functionality via email.
     * CSRF protection on all forms.
-Appointment Management:
+* Appointment Management:
     * Select from a list of available employees.
     * Interactive calendar to pick a date.
     * Dynamically loads available time slots for the selected employee and date.
     * Real-time validation to prevent double-booking.
     * "Find First Day Available" feature for quick booking.
-User Profile Dashboard:
+* User Profile Dashboard:
     * View upcoming and past appointments in separate tabs.
     * Ability to cancel upcoming appointments.
     * In-place editing for user details (First Name, Last Name, Email, Phone, Birthday) without a page reload.
     * Securely change your password with validation checks.
     * Upload and update a profile picture.
-Responsive UI:
+* Responsive UI:
     * Built with Bootstrap 5 for a mobile-first, responsive design.
     * Optimized views for both desktop and mobile devices.
     * Persistent Dark/Light theme toggle.
 
 ---
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 ### Backend
-Framework: Flask
-Database: SQLAlchemy, Flask-Migrate (with SQLite as the default)
-Authentication: Flask-Login, Flask-Dance, Werkzeug (for password hashing)
-Forms: Flask-WTF
-Email: smtplib
-Environment Variables: python-dotenv
+* Framework: Flask
+* Database: SQLAlchemy, Flask-Migrate (with SQLite as the default)
+* Authentication: Flask-Login, Flask-Dance, Werkzeug (for password hashing)
+* Forms: Flask-WTF
+* Email: smtplib
+* Environment Variables: python-dotenv
 
 ### Frontend ( i use my imagination and gemini )
-Styling**: Bootstrap 5, CSS3
-JavaScript**: Vanilla JS (for DOM manipulation, API calls), jQuery (for validation)
-Template Engine**: Jinja2
-Icons**: Bootstrap Icons, Font Awesome
+* Styling**: Bootstrap 5, CSS3
+* JavaScript**: Vanilla JS (for DOM manipulation, API calls), jQuery (for validation)
+* Template Engine**: Jinja2
+* Icons**: Bootstrap Icons, Font Awesome
 
 ---
 
 🚀 Setup and Installation
-
 Follow these steps to get the project running on your local machine.
-Python 3.8 +
 
-1. Set Up Virtual Environment
-Create and activate a virtual environment.
+Prerequisites:
 
-2. Install Dependencies
-Install all the required packages from requirements.txt.
+Python 3.8+
 
-3. Environment Variables
-Create a .env file in the root directory of the project. This file will hold your secret keys and configuration variables. You can copy the structure below.
-# Flask Secret Key
+Git
+
+1. Clone the Repository 📂
+First, clone the project repository to your local machine.
+
+2. Create & Activate Virtual Environment 🌿
+This isolates the project's dependencies from your system.
+
+3. Install Dependencies 📦
+Install all the required packages from the requirements.txt file.
+
+4. Configure Environment Variables 🔑
+Create a .env file in the project's root directory and populate it with the following keys.
+
+# Flask Secret Key (generate a new one)
 SECRET_KEY='a_very_strong_and_random_secret_key'
+
 # Database Configuration
 DB_NAME='database.db'
 
@@ -75,18 +84,22 @@ DB_NAME='database.db'
 CLIENT_ID='your_google_client_id'
 CLIENT_SECRET='your_google_client_secret'
 
-# Email Configuration (for an App Password in Gmail)
+# Email Configuration (for a Gmail App Password)
 MY_EMAIL='your.email@gmail.com'
-PASSWORD='your gmail app password'
+PASSWORD='your_gmail_app_password'
 
 # Application URLs (for email links)
 CONFIRMATION_URL="http://localhost:5000/confirm?code="
 RESET_PASSWORD="http://localhost:5000/reset-password?"
 
-4. Initialize the Database
-Use Flask-Migrate to create and apply your database schema.
+Note: To get the CLIENT_ID and CLIENT_SECRET, create a project in the Google Cloud Console and set up an OAuth consent screen. For PASSWORD, use an "App Password" generated from your Google Account settings.
 
-5. Run the Application
+5. Initialize the Database 🗄️
+To test it you will find in admin folder two files to initialize the database and hours interval
+
+6. Run the Application ▶️
+Start the Flask development server.
+
 flask run
 
-The application will be available at http://localhost:5000.
+The application will be running on localhost.
