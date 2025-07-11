@@ -30,7 +30,7 @@ google_bp = make_google_blueprint(
 @auth.route('/login', methods = ['GET','POST'])
 def login():
     form = LoginForm()
-    fp_form = RequestResetPasswordForm() # forgot_password_form
+    fp_form = RequestResetPasswordForm()
 
     if form.validate_on_submit():
         email = form.email.data
@@ -263,7 +263,6 @@ def reset_password():
     return render_template('manager/change_password.html',form=form, selector=selector, token=token)
 
 
-# Json
 @auth.route('/check_first_name', methods=['POST'])
 def check_first_name():
     username = request.form.get('first_name')

@@ -35,7 +35,7 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
-    migrate.init_app(app, db) # Helpfully Tool To Modify DataBase
+    migrate.init_app(app, db)
 
     from . import models
     create_database(app)

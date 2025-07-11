@@ -46,7 +46,6 @@ class Registration(FlaskForm):
 
 
     def validate_password(self, password_field):
-        print('Verific Conditiile')
 
         password_value = password_field.data
 
